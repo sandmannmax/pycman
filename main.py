@@ -7,11 +7,14 @@ clock = pygame.time.Clock()
 
 close = False
 pacman = pygame.image.load('2000px-Pacman.svg.png')
-pacman = pygame.transform.scale(pacman, (30, 30))
+pacman = pygame.transform.scale(pacman, (32, 32))
 background = pygame.image.load('background.png')
 gameDisplay.blit(background,(0,0))
-posX = 480
-posY = 545
+posX = 15
+posY = 17
+posXpx = posX*32
+posYpx = posY*32
+praedirection = 4
 direction = 4
 matrix = [[]] 
 matrix.append([-2,1,1,1,1,-2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,-2,1,1,1,1,-2])
@@ -54,7 +57,8 @@ def drawPacMan(x, y):
     gameDisplay.blit(background,(0,0))
     gameDisplay.blit(pacman,(x,y))
 
-drawPacMan(posX, posY)
+drawPacMan(posXpx, posYpx)
+matrix[posY][posX] = 0
 
 while not close:
     for event in pygame.event.get():
@@ -62,23 +66,153 @@ while not close:
             close = True
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                direction = 4
+                praedirection = 4
             if event.key == pygame.K_RIGHT:
-                direction = 2
+                praedirection = 2
             if event.key == pygame.K_UP:
-                direction = 1
+                praedirection = 1
             if event.key == pygame.K_DOWN:
-                direction = 3
+                praedirection = 3
     
     if direction == 1:
-        posY -= 1
+        if posYpx % 32 > 0:
+            posYpx -= 1
+        elif matrix[posY - 1][posX] != -2:
+            if praedirection == direction:
+                matrix[posY][posX] = -1
+                posYpx -= 1
+                matrix[posY - 1][posX] = 0
+                posY -= 1
+            else:
+                if praedirection == 2:
+                    if matrix[posY][posX + 1] != -2:
+                        direction = praedirection
+                    else:
+                        matrix[posY][posX] = -1
+                        posYpx -= 1
+                        matrix[posY - 1][posX] = 0
+                        posY -= 1
+                elif praedirection == 3:
+                    if matrix[posY + 1][posX] != -2:
+                        direction = praedirection
+                    else:
+                        matrix[posY][posX] = -1
+                        posYpx -= 1
+                        matrix[posY - 1][posX] = 0
+                        posY -= 1
+                elif praedirection == 4:
+                    if matrix[posY][posX - 1] != -2:
+                        direction = praedirection
+                    else:
+                        matrix[posY][posX] = -1
+                        posYpx -= 1
+                        matrix[posY - 1][posX] = 0
+                        posY -= 1
     if direction == 2:
-        posX += 1
+        if posXpx % 32 == 0 or posXpx / 32 < posX:
+            posXpx += 1
+        elif matrix[posY][posX + 1] != -2:
+            if praedirection == direction:
+                matrix[posY][posX] = -1
+                posXpx += 1
+                matrix[posY][posX + 1] = 0
+                posX += 1
+            else:
+                if praedirection == 1:
+                    if matrix[posY - 1][posX] != -2:
+                        direction = praedirection
+                    else:
+                        matrix[posY][posX] = -1
+                        posXpx += 1
+                        matrix[posY][posX + 1] = 0
+                        posX += 1
+                elif praedirection == 3:
+                    if matrix[posY + 1][posX] != -2:
+                        direction = praedirection
+                    else:
+                        matrix[posY][posX] = -1
+                        posXpx += 1
+                        matrix[posY][posX + 1] = 0
+                        posX += 1
+                elif praedirection == 4:
+                    if matrix[posY][posX - 1] != -2:
+                        direction = praedirection
+                    else:
+                        matrix[posY][posX] = -1
+                        posXpx += 1
+                        matrix[posY][posX + 1] = 0
+                        posX += 1
     if direction == 3:
-        posY += 1
+        if posYpx % 32 == 0 or posYpx / 32 < posY:
+            posYpx += 1
+        elif matrix[posY + 1][posX] != -2:
+            if praedirection == direction:
+                matrix[posY][posX] = -1
+                posYpx += 1
+                matrix[posY + 1][posX] = 0
+                posY += 1
+            else:
+                if praedirection == 1:
+                    if matrix[posY - 1][posX] != -2:
+                        direction = praedirection
+                    else:
+                        matrix[posY][posX] = -1
+                        posYpx += 1
+                        matrix[posY + 1][posX] = 0
+                        posY += 1
+                elif praedirection == 2:
+                    if matrix[posY][posX + 1] != -2:
+                        direction = praedirection
+                    else:
+                        matrix[posY][posX] = -1
+                        posYpx += 1
+                        matrix[posY + 1][posX] = 0
+                        posY += 1
+                elif praedirection == 4:
+                    if matrix[posY][posX - 1] != -2:
+                        direction = praedirection
+                    else:
+                        matrix[posY][posX] = -1
+                        posYpx += 1
+                        matrix[posY + 1][posX] = 0
+                        posY += 1
     if direction == 4:
-        posX -= 1
-    drawPacMan(posX, posY)
+        if posXpx % 32 > 0:
+            posXpx -= 1
+        elif matrix[posY][posX - 1] != -2:
+            if praedirection == direction:
+                matrix[posY][posX] = -1
+                posXpx -= 1
+                matrix[posY][posX - 1] = 0
+                posX -= 1
+            else:
+                if praedirection == 1:
+                    if matrix[posY - 1][posX] != -2:
+                        direction = praedirection
+                        print(posXpx,posYpx)
+                    else:
+                        matrix[posY][posX] = -1
+                        posXpx -= 1
+                        matrix[posY][posX - 1] = 0
+                        posX -= 1
+                elif praedirection == 2:
+                    if matrix[posY][posX + 1] != -2:
+                        direction = praedirection
+                    else:
+                        matrix[posY][posX] = -1
+                        posXpx -= 1
+                        matrix[posY][posX - 1] = 0
+                        posX -= 1
+                elif praedirection == 3:
+                    if matrix[posY + 1][posX] != -2:
+                        direction = praedirection
+                    else:
+                        matrix[posY][posX] = -1
+                        posXpx -= 1
+                        matrix[posY][posX - 1] = 0
+                        posX -= 1
+
+    drawPacMan(posXpx, posYpx)
     pygame.display.update()
     clock.tick(30)
 
