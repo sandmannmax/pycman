@@ -10,8 +10,13 @@ pacman = pygame.image.load('2000px-Pacman.svg.png')
 pacman = pygame.transform.scale(pacman, (30, 30))
 background = pygame.image.load('background.png')
 gameDisplay.blit(background,(0,0))
-posX = 523
-posY = 395
+posX = 480
+posY = 545
+matrix = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]] 
+for i in range(31):
+    matrix[0].append(-2)
+for i in range(31):
+    matrix[31].append(-2)
 
 def drawPacMan(x, y):
     gameDisplay.blit(pacman,(x,y))
