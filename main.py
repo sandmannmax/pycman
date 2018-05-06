@@ -12,6 +12,7 @@ background = pygame.image.load('background.png')
 gameDisplay.blit(background,(0,0))
 posX = 480
 posY = 545
+direction = 4
 matrix = [[]] 
 matrix.append([-2,1,1,1,1,-2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,-2,1,1,1,1,-2])
 matrix.append([-2,1,-2,-2,1,-2,1,-2,1,-2,1,-2,1,-2,-2,-2,-2,-2,-2,1,-2,-2,-2,-2,-2,1,-2,1,-2,-2,1,-2])
@@ -50,6 +51,7 @@ for i in range(31):
     matrix[31].append(-2)
 
 def drawPacMan(x, y):
+    gameDisplay.blit(background,(0,0))
     gameDisplay.blit(pacman,(x,y))
 
 drawPacMan(posX, posY)
@@ -58,13 +60,27 @@ while not close:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             close = True
-        move_ticker = 0
-        keys=pygame.key.get_pressed()
-        print(keys)
-        #
-        drawPacMan(posX, posY)
-        pygame.display.update()
-        clock.tick(30)
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                direction = 4
+            if event.key == pygame.K_RIGHT:
+                direction = 2
+            if event.key == pygame.K_UP:
+                direction = 1
+            if event.key == pygame.K_DOWN:
+                direction = 3
+    
+    if direction == 1:
+        posY -= 1
+    if direction == 2:
+        posX += 1
+    if direction == 3:
+        posY += 1
+    if direction == 4:
+        posX -= 1
+    drawPacMan(posX, posY)
+    pygame.display.update()
+    clock.tick(30)
 
 pygame.quit()
 quit()
