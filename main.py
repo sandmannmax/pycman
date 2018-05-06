@@ -1,7 +1,7 @@
 import pygame
 
 pygame.init()
-gameDisplay = pygame.display.set_mode((900,700))
+gameDisplay = pygame.display.set_mode((1024,1024))
 pygame.display.set_caption('PacMan')
 clock = pygame.time.Clock()
 
@@ -9,7 +9,6 @@ close = False
 pacman = pygame.image.load('2000px-Pacman.svg.png')
 pacman = pygame.transform.scale(pacman, (30, 30))
 background = pygame.image.load('background.png')
-background = pygame.transform.scale(background, (1080, 720))
 gameDisplay.blit(background,(0,0))
 posX = 523
 posY = 395
