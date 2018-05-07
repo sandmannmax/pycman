@@ -4,12 +4,15 @@ os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0,30)
 import pygame
 
 pygame.init()
-gameDisplay = pygame.display.set_mode((1024,1024))
-pygame.display.set_caption('PacMan')
+gameDisplay = pygame.display.set_mode((1920,1024))
+pygame.display.set_caption('Pycman')
+icon = pygame.image.load('icon.png')
+icon = pygame.transform.scale(icon, (32,32))
+pygame.display.set_icon(icon)
 clock = pygame.time.Clock()
 
 close = False
-pacman = pygame.image.load('2000px-Pacman.svg.png')
+pacman = pygame.image.load('pacman.png')
 pacman = pygame.transform.scale(pacman, (32, 32))
 pacman = pygame.transform.rotate(pacman,180)
 point = pygame.image.load('punkt.png')
@@ -84,6 +87,7 @@ def drawPacMan(x, y):
 
 drawPacMan(posXpx, posYpx)
 matrix[posY][posX] = 0
+
 
 while not close:
     for event in pygame.event.get():
