@@ -1,3 +1,6 @@
+import os
+os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0,30)
+
 import pygame
 
 pygame.init()
@@ -8,6 +11,7 @@ clock = pygame.time.Clock()
 close = False
 pacman = pygame.image.load('2000px-Pacman.svg.png')
 pacman = pygame.transform.scale(pacman, (32, 32))
+pacman = pygame.transform.rotate(pacman,180)
 point = pygame.image.load('punkt.png')
 background = pygame.image.load('background.png')
 gameDisplay.blit(background,(0,0))
@@ -33,7 +37,7 @@ matrix.append([-2,1,-2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,-2,-2,-2,-2,1,-2,-2,1
 matrix.append([-2,1,-2,-2,1,-2,1,-2,-2,-2,-2,1,-2,-2,-2,-2,-2,-2,-2,-2,1,-2,1,1,1,1,-2,-2,-2,-2,1,-2])
 matrix.append([-2,1,1,1,1,-2,1,-2,-2,-2,-2,1,-2,-2,-2,-2,-2,-2,-2,-2,1,-2,-2,-2,-2,-2,-2,1,1,1,1,-2])
 matrix.append([-2,-2,-2,-2,1,-2,1,-2,-2,-2,-2,1,-2,-2,-2,-2,-2,-2,-2,-2,1,-2,-2,-2,-2,-2,-2,1,-2,-2,-2,-2])
-matrix.append([1,1,1,1,1,1,1,-2,-2,-2,-2,1,-2,-2,-2,-2,-2,-2,-2,-2,1,1,1,1,1,1,1,1,1,1,1,1])
+matrix.append([-2,-2,-2,-2,1,1,1,-2,-2,-2,-2,1,-2,-2,-2,-2,-2,-2,-2,-2,1,1,1,1,1,1,1,1,-2,-2,-2,-2])
 matrix.append([-2,-2,-2,-2,1,-2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,-2,-2,-2,-2,1,-2,1,-2,-2,-2,-2])
 matrix.append([-2,1,1,1,1,-2,1,-2,1,-2,1,-2,1,-2,-2,-2,-2,-2,-2,1,-2,-2,-2,-2,-2,1,-2,1,1,1,1,-2])
 matrix.append([-2,1,-2,-2,1,-2,1,-2,1,-2,1,-2,1,-2,1,1,1,1,1,1,1,1,1,1,1,1,-2,1,-2,-2,1,-2])
@@ -107,6 +111,7 @@ while not close:
             else:
                 if praedirection == 2:
                     if matrix[posY][posX + 1] != -2:
+                        pacman = pygame.transform.rotate(pacman,270)
                         direction = praedirection
                     else:
                         matrix[posY][posX] = -1
@@ -115,6 +120,7 @@ while not close:
                         posY -= 1
                 elif praedirection == 3:
                     if matrix[posY + 1][posX] != -2:
+                        pacman = pygame.transform.rotate(pacman,180)
                         direction = praedirection
                     else:
                         matrix[posY][posX] = -1
@@ -123,6 +129,7 @@ while not close:
                         posY -= 1
                 elif praedirection == 4:
                     if matrix[posY][posX - 1] != -2:
+                        pacman = pygame.transform.rotate(pacman,90)
                         direction = praedirection
                     else:
                         matrix[posY][posX] = -1
@@ -132,12 +139,15 @@ while not close:
         else:
             if praedirection == 2:
                 if matrix[posY][posX + 1] != -2:
+                    pacman = pygame.transform.rotate(pacman,270)
                     direction = praedirection
             elif praedirection == 3:
                 if matrix[posY + 1][posX] != -2:
+                    pacman = pygame.transform.rotate(pacman,180)
                     direction = praedirection
             elif praedirection == 4:
                 if matrix[posY][posX - 1] != -2:
+                    pacman = pygame.transform.rotate(pacman,90)
                     direction = praedirection
     if direction == 2:
         if posXpx % 32 == 0 or posXpx / 32 < posX:
@@ -151,6 +161,7 @@ while not close:
             else:
                 if praedirection == 1:
                     if matrix[posY - 1][posX] != -2:
+                        pacman = pygame.transform.rotate(pacman,90)
                         direction = praedirection
                     else:
                         matrix[posY][posX] = -1
@@ -159,6 +170,7 @@ while not close:
                         posX += 1
                 elif praedirection == 3:
                     if matrix[posY + 1][posX] != -2:
+                        pacman = pygame.transform.rotate(pacman,270)
                         direction = praedirection
                     else:
                         matrix[posY][posX] = -1
@@ -167,6 +179,7 @@ while not close:
                         posX += 1
                 elif praedirection == 4:
                     if matrix[posY][posX - 1] != -2:
+                        pacman = pygame.transform.rotate(pacman,180)
                         direction = praedirection
                     else:
                         matrix[posY][posX] = -1
@@ -176,12 +189,15 @@ while not close:
         else:
             if praedirection == 1:
                 if matrix[posY - 1][posX] != -2:
+                    pacman = pygame.transform.rotate(pacman,90)
                     direction = praedirection
             elif praedirection == 3:
                 if matrix[posY + 1][posX] != -2:
+                    pacman = pygame.transform.rotate(pacman,270)
                     direction = praedirection
             elif praedirection == 4:
                 if matrix[posY][posX - 1] != -2:
+                    pacman = pygame.transform.rotate(pacman,180)
                     direction = praedirection
     if direction == 3:
         if posYpx % 32 == 0 or posYpx / 32 < posY:
@@ -195,6 +211,7 @@ while not close:
             else:
                 if praedirection == 1:
                     if matrix[posY - 1][posX] != -2:
+                        pacman = pygame.transform.rotate(pacman,180)
                         direction = praedirection
                     else:
                         matrix[posY][posX] = -1
@@ -203,6 +220,7 @@ while not close:
                         posY += 1
                 elif praedirection == 2:
                     if matrix[posY][posX + 1] != -2:
+                        pacman = pygame.transform.rotate(pacman,90)
                         direction = praedirection
                     else:
                         matrix[posY][posX] = -1
@@ -211,6 +229,7 @@ while not close:
                         posY += 1
                 elif praedirection == 4:
                     if matrix[posY][posX - 1] != -2:
+                        pacman = pygame.transform.rotate(pacman,270)
                         direction = praedirection
                     else:
                         matrix[posY][posX] = -1
@@ -220,12 +239,15 @@ while not close:
         else:
             if praedirection == 1:
                 if matrix[posY - 1][posX] != -2:
+                    pacman = pygame.transform.rotate(pacman,180)
                     direction = praedirection
             elif praedirection == 2:
                 if matrix[posY][posX + 1] != -2:
+                    pacman = pygame.transform.rotate(pacman,90)
                     direction = praedirection
             elif praedirection == 4:
                 if matrix[posY][posX - 1] != -2:
+                    pacman = pygame.transform.rotate(pacman,270)
                     direction = praedirection
     if direction == 4:
         if posXpx % 32 > 0:
@@ -239,6 +261,7 @@ while not close:
             else:
                 if praedirection == 1:
                     if matrix[posY - 1][posX] != -2:
+                        pacman = pygame.transform.rotate(pacman,270)
                         direction = praedirection
                     else:
                         matrix[posY][posX] = -1
@@ -247,6 +270,7 @@ while not close:
                         posX -= 1
                 elif praedirection == 2:
                     if matrix[posY][posX + 1] != -2:
+                        pacman = pygame.transform.rotate(pacman,180)
                         direction = praedirection
                     else:
                         matrix[posY][posX] = -1
@@ -255,6 +279,7 @@ while not close:
                         posX -= 1
                 elif praedirection == 3:
                     if matrix[posY + 1][posX] != -2:
+                        pacman = pygame.transform.rotate(pacman,90)
                         direction = praedirection
                     else:
                         matrix[posY][posX] = -1
@@ -264,12 +289,15 @@ while not close:
         else:
             if praedirection == 1:
                 if matrix[posY - 1][posX] != -2:
+                    pacman = pygame.transform.rotate(pacman,270)
                     direction = praedirection
             elif praedirection == 2:
                 if matrix[posY][posX + 1] != -2:
+                    pacman = pygame.transform.rotate(pacman,180)
                     direction = praedirection
             elif praedirection == 3:
                 if matrix[posY + 1][posX] != -2:
+                    pacman = pygame.transform.rotate(pacman,90)
                     direction = praedirection
 
     drawPacMan(posXpx, posYpx)
